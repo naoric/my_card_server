@@ -16,10 +16,11 @@ class CreateCardsTable extends Migration {
 		{
 			$table->increments('id');
 			$table->string('name', 50);
-			$table->string('address', 255);
 			$table->text('description');
-			$table->binary('image');
+			$table->integer('image_id')->unsigned()->indexed();
 			$table->timestamps();
+			
+			$table->foreign('image_id')->references('id')->on('images');
 		});
 	}
 
