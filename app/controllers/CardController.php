@@ -4,7 +4,8 @@ class CardController extends BaseController {
     
     public function getAllCards()  {
         $cards = Card::all();
-        return $cards->toJson();
+        $response = Response::json($cards->toArray())->setCallback(Input::get('callback'));
+        return $response;
     }
     
 }

@@ -12,17 +12,17 @@
  */
 
 Route::get('/', function() {
-	return View::make('hello');
+	// return View::make('hello');
+  return 'This shit is working';
 });
+
 
 /**
  * Image retriever
  */
 Route::get('image.php/{id}', function($id) {
 	$image = Image::findOrFail($id);
-
 	$response = Response::make($image -> image, 200, array('Content-Type' => $image -> mime));
-
 	return $response;
 });
 
