@@ -11,6 +11,8 @@
  |
  */
 
+ use Naoric\Debugging\Debug;
+ 
 Route::get('/', function() {
 	// return View::make('hello');
   return 'This shit is working';
@@ -28,7 +30,7 @@ Route::get('image.php/{id}', function($id) {
 
 Route::get('vtest', function() {
 	$items = array(
-		'full_name' => '',
+		'full_name' => 'naor ami',
 		'email' 		=> 'naoric@gmail.com',
 		'birth_date' => '10/10/1984',
 		'password' => '10101984'
@@ -36,9 +38,11 @@ Route::get('vtest', function() {
 	
 	$validator = Naoric\Registration\Register::validateUser($items);
 	if ($validator->fails()){
-		print_r($validator->messages());
+		Debug::dump($validator->messages());
 	}
 	
 });
+
+
 
 Route::controller('cards', 'CardController');
