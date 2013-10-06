@@ -22,7 +22,7 @@ Route::get('/', function() {
  */
 Route::get('image.php/{id}', function($id) {
 	$image = Image::findOrFail($id);
-	$response = Response::make($image -> image, 200, array('Content-Type' => $image -> mime));
+	$response = Response::make($image->image, 200, array('Content-Type' => $image->mime));
 	return $response;
 });
 
