@@ -26,4 +26,19 @@ Route::get('image.php/{id}', function($id) {
 	return $response;
 });
 
+Route::get('vtest', function() {
+	$items = array(
+		'full_name' => '',
+		'email' 		=> 'naoric@gmail.com',
+		'birth_date' => '10/10/1984',
+		'password' => '10101984'
+	);
+	
+	$validator = Naoric\Registration\Register::validateUser($items);
+	if ($validator->fails()){
+		print_r($validator->messages());
+	}
+	
+});
+
 Route::controller('cards', 'CardController');
