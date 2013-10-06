@@ -18,8 +18,12 @@ class Register {
   public function validateUser() {
     $userData = Input::all();
 		
+		$validation = \Validator::make(
+			$userData,
+			self::$userRules
+		);
 		
-		
+		return $validation;
   }
 
 }
