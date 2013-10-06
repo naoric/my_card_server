@@ -7,8 +7,8 @@ class Register {
 	public static $userRules = array(
 		'email' => 'required|email',
 		'full_name' => 'required|min:3',
-		
-		
+		'password' => 'required|min:6',
+		'birth_date' => 'date|before:-1 year|after:-100 year',
 	);
 
   function __construct() {
@@ -17,6 +17,7 @@ class Register {
 
   public function validateUser() {
     $userData = Input::all();
+		
 		
 		
   }

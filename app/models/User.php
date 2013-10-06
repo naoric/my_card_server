@@ -48,5 +48,14 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->email;
 	}
+	
+	/**
+	 * Get active status of the user
+	 * 
+	 * @return boolean
+	 */
+	public function isActive() {
+		return $this->active;
+	}
 
 }
