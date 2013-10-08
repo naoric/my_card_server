@@ -5,26 +5,26 @@ use Naoric\Debugging\Debug;
 
 class Register {
 
-	$current_date = new DateTime();
-	$date_format = $current_date->format('Y-m-d');
-
-	public static $user_rules = array(
-		'email' => 'required|email',
-		'full_name' => 'required|min:3',
-		'password' => 'required|min:6',
-		'birth_date' => 'date|',
-	);
-
 	function __construct() {
 
 	}
 
 	public static function validateUser($user_data) {
+			
+		$youngest = new DateTime('-10 years');
+		$oldest = new DateTime('-100 years');
+		
+		$youngest_format = $youngest-> format('Y-m-d');
+		$oldest_format = $oldest->format('Y-m-d');
+		
+		$user_rules = array(
+			'email' => 'required|email',
+			'full_name' => 'required|min:3|max:50',
+			'password' => 'required|min:6|max:30',
+			'birth_date' => 'date|before:' . $youngest_format . '|after:' . $oldest_format,
+		);
 
-		Debug::dump(self::$user_rules);
-		Debug::dump($user_data);
-
-		$validation = \Validator::make($user_data, self::$user_rules);
+		$validation = \Validator::make($user_data, $user_rules);
 
 		return $validation;
 	}
