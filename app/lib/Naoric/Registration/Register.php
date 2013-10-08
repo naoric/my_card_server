@@ -5,11 +5,14 @@ use Naoric\Debugging\Debug;
 
 class Register {
 
+	$current_date = new DateTime();
+	$date_format = $current_date->format('Y-m-d');
+
 	public static $user_rules = array(
 		'email' => 'required|email',
 		'full_name' => 'required|min:3',
 		'password' => 'required|min:6',
-		'birth_date' => 'date',
+		'birth_date' => 'date|',
 	);
 
 	function __construct() {

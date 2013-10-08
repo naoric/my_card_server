@@ -46,3 +46,6 @@ Route::get('vtest', function() {
 
 
 Route::controller('cards', 'CardController');
+Route::resource('user', 'UserController' ,array (
+	'except' => array('index', 'destroy') 
+));
