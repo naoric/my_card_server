@@ -18,11 +18,11 @@ class UserController extends BaseController {
       return Response::json($result);
     }
 
-    $user = new User;
-
+    $user = new User($form_data);
     $user->password = Input::get('password');
-    $user->fill($form_data);
-    $user->push();
+    $user->save();
+
+    // @todo add email verification feature
 
     return Response::json(['status' => 'success']);
   }

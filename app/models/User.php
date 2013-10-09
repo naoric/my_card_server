@@ -20,6 +20,17 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    */
   protected $hidden = array('password');
 
+
+  public static function boot() {
+    parent::boot();
+
+    static::saving(function($user) {
+      $user->registration_token = str_random(40);
+    });
+
+//    static::observe(new Naoric\Observers\UserObserver);
+  }
+
   /**
    * Get the unique identifier for the user.
    *
