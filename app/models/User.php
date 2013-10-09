@@ -26,6 +26,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     static::saving(function($user) {
       $user->registration_token = str_random(40);
+      $user->session_token = str_random(20);
+      $user->token_valid_until = new DateTime('+1 week');
     });
 
 //    static::observe(new Naoric\Observers\UserObserver);

@@ -24,7 +24,22 @@ class UserController extends BaseController {
 
     // @todo add email verification feature
 
-    return Response::json(['status' => 'success'])->setCallback('callback');
+    return Response::json([
+        'status' => 'success',
+      ])->setCallback('callback');
+  }
+
+  public function login() {
+    $user_data = Input::all();
+
+    if (Auth::attempt([
+        'email' => $user_data['email'],
+        'password' => $user_data['password'],
+        'active' => 1
+        ], true)) {
+
+      return Response::json(['status' => 'success']);
+    }
   }
 
 }

@@ -13,6 +13,12 @@
 
 use Naoric\Debugging\Debug;
 
+
+Route::group(['before' => 'auth'], function() {
+  Route::controller('cards', 'CardController');
+});
+
+
 Route::get('/', function() {
     // return View::make('hello');
     return 'This shit is working';
@@ -22,15 +28,23 @@ Route::get('images/{id}', function($id) {
     return Image::find($id)->path;
 });
 
-Route::controller('cards', 'CardController');
 
 Route::resource('user', 'UserController', array(
     'except' => array('create', 'index', 'destroy', 'edit')
 ));
 
+Route::post('login', 'UserController@login');
 /**
  * For testing purposes
  */
 Route::get('vtest', function() {
     return Request::url(1);
 });
+
+
+/*
+ * -----------------------------------------------------------------------
+ * Routing filters
+ * -----------------------------------------------------------------------
+ */
+
