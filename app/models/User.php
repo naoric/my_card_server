@@ -26,8 +26,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     static::saving(function($user) {
       $user->registration_token = str_random(40);
-      $user->session_token = str_random(20);
-      $user->token_valid_until = new DateTime('+1 week');
     });
 
 //    static::observe(new Naoric\Observers\UserObserver);
@@ -51,7 +49,35 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     return $this->password;
   }
 
+  /**
+   * Generates an encrypted first login token
+   * for account verification
+   *
+   * @return string
+   */
+  public function getFirstLoginToken() {
+    $token = "{$this->registration_token};{$this->email}";
+    return Crypt::encrypt($token);
+  }
 
+  /**
+   * First login verification - given encrypted data
+   * checks weather user token matches email address
+   *
+   * @param string $encrypted_token
+   * @return boolean
+   */
+  public static function activateUser($encrypted_token) {
+    $raw = Crypt::decrypt($encrypted_token);
+    $token = split(';', $raw);
+
+    $user = User::where('email', '=', $token[1])->first();
+    if ($user->registration_token === $token[0]) {
+      $user->active = TRUE;
+    }
+
+    return $user->active;
+  }
 
   /**
    *

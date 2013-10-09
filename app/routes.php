@@ -13,15 +13,10 @@
 
 use Naoric\Debugging\Debug;
 
-
+// Routes with authorization
 Route::group(['before' => 'auth'], function() {
+
   Route::controller('cards', 'CardController');
-});
-
-
-Route::get('/', function() {
-    // return View::make('hello');
-    return 'This shit is working';
 });
 
 Route::get('images/{id}', function($id) {
@@ -34,13 +29,20 @@ Route::resource('user', 'UserController', array(
 ));
 
 Route::post('login', 'UserController@login');
+
 /**
+ * -----------------------------------------------------------------------
  * For testing purposes
+ * -----------------------------------------------------------------------
  */
 Route::get('vtest', function() {
     return Request::url(1);
 });
 
+Route::get('/', function() {
+  // return View::make('hello');
+  return 'This shit is working';
+});
 
 /*
  * -----------------------------------------------------------------------

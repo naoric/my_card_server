@@ -41,7 +41,7 @@ class Register {
     if ($validator->fails()) {
       return [
         'status' => 'failed',
-        'messages' => $validator->messages()->all()
+        'messages' => $validator->messages()->toArray()
       ];
     }
 
