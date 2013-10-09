@@ -32,16 +32,5 @@ Route::resource('user', 'UserController', array(
  * For testing purposes
  */
 Route::get('vtest', function() {
-    $items = array(
-        'full_name' => 'naor ami',
-        'email' => 'naoric@gmail.com',
-        'birth_date' => '10/10/1984',
-        'password' => '10101984'
-    );
-
-    $validator = Naoric\Registration\Register::validateUser($items);
-    if ($validator->fails()) {
-        Debug::dump($validator->messages());
-    }
+    return Request::url(1);
 });
-

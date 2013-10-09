@@ -31,4 +31,21 @@ class Register {
     return $validation;
   }
 
+  public static function validateUserWithResult($user_data) {
+    $validator = self::validateUser($user_data);
+
+    return self::buildValidationResult($validator);
+  }
+
+  public static function buildValidationResult($validator) {
+    if ($validator->fails()) {
+      return [
+        'status' => 'failed',
+        'messages' => $validator->messages()->all()
+      ];
+    }
+
+    return ['status' => 'success'];
+  }
+
 }

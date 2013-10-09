@@ -49,6 +49,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     return $this->password;
   }
 
+
+
   /**
    *
    * Hash password when user created or modified
