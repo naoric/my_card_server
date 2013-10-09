@@ -29,5 +29,4 @@ class UserController extends BaseController {
       return Response::json(['status' => 'success']);
     }
   }
-
 }
