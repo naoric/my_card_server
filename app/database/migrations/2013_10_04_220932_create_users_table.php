@@ -19,10 +19,10 @@ class CreateUsersTable extends Migration {
 			$table->string('email', 50);
 			$table->string('salt', 8);
 			$table->string('password');
-			$table->integer('global_points')->unsigned();
-			
+			$table->integer('global_points')->unsigned()->default('0');
 
-			$table->timestamps();
+
+      $table->timestamps();
 		});
 	}
 

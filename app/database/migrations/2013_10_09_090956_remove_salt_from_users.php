@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class AddActiveToUsers extends Migration {
+class RemoveSaltFromUsers extends Migration {
 
   /**
    * Run the migrations.
@@ -11,7 +11,7 @@ class AddActiveToUsers extends Migration {
    */
   public function up() {
     Schema::table('users', function($table) {
-      $table->boolean('active')->default(0);
+      $table->dropColumn('salt');
     });
   }
 
@@ -22,7 +22,7 @@ class AddActiveToUsers extends Migration {
    */
   public function down() {
     Schema::table('users', function($table) {
-      $table->dropColumn('active');
+      $table->string('salt');
     });
   }
 
