@@ -39,6 +39,20 @@ Route::get('vtest', function() {
     return Request::url(1);
 });
 
+Route::get('token', function() {
+  $email = Input::get('email');
+  $user = User::byEmail($email)->first();
+  $token = $user->getFirstLoginToken();
+  return $token;
+});
+
+Route::post('token', function() {
+  $data = Input::get('token');
+
+  $result = User::activate($data);
+  return ($result ? 'true' : 'false');
+});
+
 Route::get('/', function() {
   // return View::make('hello');
   return 'This shit is working';

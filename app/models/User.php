@@ -32,6 +32,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   }
 
   /**
+   * Quick retrival by unique email address
+   *
+   * @param Query $query
+   * @param string $email
+   */
+  public function scopeByEmail($query, $email) {
+    return $query->whereEmail($email)->first();
+  }
+
+  /**
    * Get the unique identifier for the user.
    *
    * @return mixed
@@ -62,18 +72,21 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
   /**
    * First login verification - given encrypted data
-   * checks weather user token matches email address
+   * checks whether user registration token matches email address
    *
    * @param string $encrypted_token
    * @return boolean
    */
-  public static function activateUser($encrypted_token) {
+  public static function activate($encrypted_token) {
     $raw = Crypt::decrypt($encrypted_token);
-    $token = split(';', $raw);
+    $token = explode(';', $raw, 2);
+    $email = $token[1];
 
-    $user = User::where('email', '=', $token[1])->first();
+
+    $user = User::byEmail($email)->first();
     if ($user->registration_token === $token[0]) {
       $user->active = TRUE;
+      $user->save();
     }
 
     return $user->active;
