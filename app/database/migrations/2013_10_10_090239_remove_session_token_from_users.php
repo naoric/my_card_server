@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class AddLogoToCards extends Migration {
+class RemoveSessionTokenFromUsers extends Migration {
 
   /**
    * Run the migrations.
@@ -10,8 +10,9 @@ class AddLogoToCards extends Migration {
    * @return void
    */
   public function up() {
-    Schema::table('cards', function($table) {
-      $table->string('logo');
+    Schema::table('users', function($table) {
+      $table->dropColumn('session_token');
+      $table->dropColumn('token_valid_until');
     });
   }
 
@@ -21,9 +22,7 @@ class AddLogoToCards extends Migration {
    * @return void
    */
   public function down() {
-    Schema::table('cards', function($table) {
-      $table->dropColumn('logo');
-    });
+    
   }
 
 }

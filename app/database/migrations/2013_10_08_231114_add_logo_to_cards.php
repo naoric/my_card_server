@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 
 class AddLogoToCards extends Migration {
 
-	/**
+  /**
 	 * Run the migrations.
 	 *
 	 * @return void
