@@ -54,8 +54,8 @@ Route::post('token', function() {
 });
 
 Route::get('/', function() {
-  // return View::make('hello');
-  return 'This shit is working';
+  $result = Location::getClosestLocations([10, 10], 1);
+  return Response::json($result);
 });
 
 /*
