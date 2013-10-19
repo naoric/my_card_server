@@ -1,33 +1,24 @@
 <?php
+use Naoric\Debugging\Debug;
 
 /*
   |--------------------------------------------------------------------------
-  | Application Routes
+  | Main Routes
   |--------------------------------------------------------------------------
   |
-  | Here is where you can register all of the routes for an application.
-  | It's a breeze. Simply tell Laravel the URIs it should respond to
-  | and give it the Closure to execute when that URI is requested.
+  | These are the main routes to all MyCard services
   |
  */
-
-use Naoric\Debugging\Debug;
-
-// Routes with authorization
 Route::group(['before' => 'auth'], function() {
-
-  Route::controller('cards', 'CardController');
 });
 
+Route::controller('cards', 'CardController');
 Route::get('images/{id}', function($id) {
     return Image::find($id)->path;
 });
-
-
 Route::resource('user', 'UserController', array(
     'except' => array('create', 'index', 'destroy', 'edit')
 ));
-
 Route::post('login', 'UserController@login');
 
 /**

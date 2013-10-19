@@ -9,12 +9,12 @@ class UserController extends BaseController {
     $result = Register::validateUserWithResult(Input::all());
 
     if ($result['status'] === 'success') {
-      $user = new User(Input::except('password'));
+      $user = new User(Input::only(array('full_name', 'email', 'birth_date')));
       $user->password = Input::get('password');
       $user->save();
     }
 
-    return $result;
+    return Response::json($result);
   }
 
   public function login() {
