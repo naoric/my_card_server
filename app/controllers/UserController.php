@@ -8,12 +8,13 @@ class UserController extends BaseController {
 
     $result = Register::validateUserWithResult(Input::all());
 
-    if ($result['status'] === 'success') {
-      $user = new User(Input::only(array('full_name', 'email', 'birth_date')));
-      $user->password = Input::get('password');
-      $user->save();
-    }
-
+//    if ($result['status'] === 'success') {
+//      $user = new User(Input::only(array('full_name', 'email', 'birth_date')));
+//      $user->password = Input::get('password');
+//      $user->save();
+//    }
+//
+//    return Response::json($result);
     return Response::json($result);
   }
 
@@ -29,4 +30,5 @@ class UserController extends BaseController {
       return Response::json(['status' => 'success']);
     }
   }
+
 }
