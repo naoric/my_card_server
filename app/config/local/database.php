@@ -55,9 +55,9 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'naoric_mycard',
-			'username'  => 'naoric_mycard',
-			'password'  => 'MUa=c-OsVtRI',
+			'database'  => 'db_mycard_server',
+			'username'  => 'root',
+			'password'  => 'root',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
