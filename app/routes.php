@@ -27,7 +27,7 @@ Route::post('login', 'UserController@login');
  * -----------------------------------------------------------------------
  */
 Route::get('vtest', function() {
-    return Request::url(1);
+    return App::environment();
 });
 
 Route::get('token', function() {

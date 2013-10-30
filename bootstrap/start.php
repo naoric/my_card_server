@@ -27,7 +27,8 @@ $app->redirectIfTrailingSlash();
 */
 
 $env = $app->detectEnvironment(array(
-	'local' => 'your-server-name'
+		'local' => 'naoric-PC',
+		'production' => 'gator3100.hostgator.com'
 ));
 
 /*
