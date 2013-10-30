@@ -8,4 +8,8 @@ class CardController extends BaseController {
     return $response;
   }
 
+	public function getSearch($name) {
+		
+	}
+
 }

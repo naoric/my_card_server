@@ -26,7 +26,7 @@ Route::post('login', 'UserController@login');
  * For testing purposes
  * -----------------------------------------------------------------------
  */
-Route::get('vtest', function() {
+Route::get('env', function() {
     return App::environment();
 });
 
