@@ -1,4 +1,5 @@
 <?php
+
 use Naoric\Debugging\Debug;
 
 /*
@@ -10,16 +11,43 @@ use Naoric\Debugging\Debug;
   |
  */
 Route::group(['before' => 'auth'], function() {
+  
 });
 
 Route::controller('cards', 'CardController');
 Route::get('images/{id}', function($id) {
-    return Image::find($id)->path;
+  return Image::find($id)->path;
 });
 Route::resource('user', 'UserController', array(
     'except' => array('create', 'index', 'destroy', 'edit')
 ));
+
 Route::post('login', 'UserController@login');
+
+Route::get('locations', function() {
+  $pnt = Input::only(['lng', 'lat']);
+  $options = Input::only(['card', 'batch', 'start']);
+
+  $rules = [
+      'lng' => 'required|numeric', // @todo Should add maximum and minimum to both
+      'lat' => 'required|numeric'
+  ];
+
+  $validator = Validator::make($pnt, $rules);
+
+  if ($validator->fails()) {
+    return Response::json([
+          'status' => 'failed',
+          'messages' => $validator->messages()->toArray()
+    ]);
+  }
+
+  return Response::json([
+        'status' => 'success',
+        'result' => Location::getNearby($pnt, $options)
+  ]);
+});
+
 
 /**
  * -----------------------------------------------------------------------
@@ -27,7 +55,7 @@ Route::post('login', 'UserController@login');
  * -----------------------------------------------------------------------
  */
 Route::get('env', function() {
-    return App::environment();
+  return App::environment();
 });
 
 Route::get('token', function() {
@@ -44,9 +72,10 @@ Route::post('token', function() {
   return ($result ? 'true' : 'false');
 });
 
+
+
 Route::get('/', function() {
-  $result = Location::getClosestLocations([10, 10], 1);
-  return Response::json($result);
+  
 });
 
 /*
