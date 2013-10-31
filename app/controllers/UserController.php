@@ -18,6 +18,8 @@ class UserController extends BaseController {
   }
 
   public function login() {
+//		return 'alon goldboim';
+//	}
     $user_data = Input::all();
 
     if (Auth::attempt([
@@ -28,6 +30,8 @@ class UserController extends BaseController {
 
       return Response::json(['status' => 'success']);
     }
+
+		return Response::json(['status' => 'login failed']);
   }
 
 }
