@@ -12,13 +12,15 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    */
   protected $table = 'users';
   protected $guarded = ['id', 'password'];
-
   public static $rules = array(
-    'email' => 'required|email|unique:users',
-    'full_name' => 'required|min:3|max:50',
-    'password' => 'required|min:6|max:30',
-
+      'email' => 'required|email|unique:users',
+      'full_name' => 'required|min:3|max:50',
+      'password' => 'required|min:6|max:30',
   );
+
+  public function cards() {
+    return $this->belongToMany('Card');
+  }
 
   /**
    * The attributes excluded from the model's JSON form.
@@ -27,10 +29,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    */
   protected $hidden = array('password');
 
-
-	public function cards() {
-		return $this->belongsToMany('User');
-	}
+  public function cards() {
+    return $this->belongsToMany('User');
+  }
 
   public static function boot() {
     parent::boot();
@@ -69,7 +70,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
   public function getAuthPassword() {
     return $this->password;
   }
-
 
   public function setBirthDateAttribute($value) {
     $this->attributes['birth_date'] = DateTime::createFromFormat('d.m.Y', $value);
