@@ -11,7 +11,7 @@ use Naoric\Debugging\Debug;
   |
  */
 Route::group(['before' => 'auth'], function() {
-  
+  Route::resource('customer', 'CustomerController');
 });
 
 Route::controller('cards', 'CardController');
