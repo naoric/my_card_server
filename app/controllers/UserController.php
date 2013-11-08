@@ -12,13 +12,23 @@ class UserController extends BaseController {
       $user = new User(Input::only(array('full_name', 'email', 'birth_date')));
       $user->password = Input::get('password');
       $user->save();
-      Mail::send('emails.approval', $user, function($message) {
-        $message->to($user->email, $user->full_name)
-          ->subject('הםעלת חשבון ב Redigo');
-      });
+      $this->sendActivationMail($user);
     }
 
     return Response::json($result);
+  }
+
+  protected function sendActivationMail($user) {
+    $query_string = '?';
+    $query_string .= http_build_query([
+        'token' => $user->getFirstLoginToken()
+    ]);
+    $url = url('activate') . $query_string;
+    Mail::send('emails.auth.activation', compact('url'), 
+      function($message) use ($user) {
+        $message->to($user->email, $user->full_name)
+          ->subject('הםעלת חשבון ב Redigo');
+      });
   }
 
   public function login() {
@@ -37,9 +47,7 @@ class UserController extends BaseController {
   }
 
   public function activate() {
-    $user = User::findOrFail(Input::get('uid'));
     $token = Input::get('token');
-
     if (User::activate($token)) {
       return View::make('notifications.activation-success');
     } else {
