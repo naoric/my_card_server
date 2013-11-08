@@ -23,15 +23,15 @@ class UserController extends BaseController {
     $user_data = Input::all();
 
     if (Auth::attempt([
-        'email' => $user_data['email'],
-        'password' => $user_data['password'],
-        'active' => 1
+          'email' => $user_data['email'],
+          'password' => $user_data['password'],
+          'active' => 1
         ], true)) {
 
       return Response::json(['status' => 'success']);
     }
 
-		return Response::json(['status' => 'login failed']);
+    return Response::json(['status' => 'login failed']);
   }
 
 }
