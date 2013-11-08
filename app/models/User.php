@@ -78,7 +78,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
    * @return string
    */
   public function getFirstLoginToken() {
-    $token = "{$this->registration_token};{$this->email}";
+    $token = $this->registration_token . ';' . $this->email;
     return Crypt::encrypt($token);
   }
 
@@ -93,7 +93,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
     $raw = Crypt::decrypt($encrypted_token);
     $token = explode(';', $raw, 2);
     $email = $token[1];
-
 
     $user = User::byEmail($email)->first();
     if ($user->registration_token === $token[0]) {

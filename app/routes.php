@@ -2,14 +2,6 @@
 
 use Naoric\Debugging\Debug;
 
-/*
-  |--------------------------------------------------------------------------
-  | Main Routes
-  |--------------------------------------------------------------------------
-  |
-  | These are the main routes to all MyCard services
-  |
- */
 Route::group(['before' => 'auth'], function() {
   Route::resource('customer', 'CustomerController');
 });
@@ -23,18 +15,15 @@ Route::get('images/{id}', function($id) {
 Route::resource('user', 'UserController', array(
     'except' => array('create', 'index', 'destroy', 'edit')
 ));
+Route::get('activate', 'UserController@activate');
 
 Route::post('login', 'UserController@login');
-
 
 /**
  * -----------------------------------------------------------------------
  * For testing purposes
  * -----------------------------------------------------------------------
  */
-Route::get('env', function() {
-  return App::environment();
-});
 
 Route::get('token', function() {
   $email = Input::get('email');
@@ -53,7 +42,7 @@ Route::post('token', function() {
 
 
 Route::get('/', function() {
-  
+  return 'Landing Page';
 });
 
 /*

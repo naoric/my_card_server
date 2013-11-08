@@ -12,14 +12,16 @@ class UserController extends BaseController {
       $user = new User(Input::only(array('full_name', 'email', 'birth_date')));
       $user->password = Input::get('password');
       $user->save();
+      Mail::send('emails.approval', $user, function($message) {
+        $message->to($user->email, $user->full_name)
+          ->subject('הםעלת חשבון ב Redigo');
+      });
     }
 
     return Response::json($result);
   }
 
   public function login() {
-//		return 'alon goldboim';
-//	}
     $user_data = Input::all();
 
     if (Auth::attempt([
@@ -32,6 +34,17 @@ class UserController extends BaseController {
     }
 
     return Response::json(['status' => 'login failed']);
+  }
+
+  public function activate() {
+    $user = User::findOrFail(Input::get('uid'));
+    $token = Input::get('token');
+
+    if (User::activate($token)) {
+      return View::make('notifications.activation-success');
+    } else {
+      return View::make('notifications.activation-failed');
+    }
   }
 
 }
