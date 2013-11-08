@@ -18,10 +18,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
       'password' => 'required|min:6|max:30',
   );
 
-  public function cards() {
-    return $this->belongToMany('Card');
-  }
-
   /**
    * The attributes excluded from the model's JSON form.
    *
