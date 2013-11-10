@@ -18,6 +18,7 @@ class UserController extends BaseController {
     return Response::json($result);
   }
 
+  
   protected function sendActivationMail($user) {
     $query_string = '?';
     $query_string .= http_build_query([

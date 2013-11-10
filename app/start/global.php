@@ -33,6 +33,8 @@ $logFile = 'log-' . php_sapi_name() . '.txt';
 
 Log::useDailyFiles(storage_path() . '/logs/' . $logFile);
 
+App::setLocale('he');
+
 /*
   |--------------------------------------------------------------------------
   | Application Error Handler
