@@ -31,20 +31,29 @@ class UserController extends BaseController {
           ->subject('הםעלת חשבון ב Redigo');
       });
   }
+  
+  public function sync() {
+      if (Auth::check()) {
+          return Response::json(['status' => '1']);
+      }
+      return Response::json(['status' => '0']);
+  }
 
   public function login() {
     $user_data = Input::all();
 
     if (Auth::attempt([
-          'email' => $user_data['email'],
-          'password' => $user_data['password'],
+          'email' => $user_data['login-email'],
+          'password' => $user_data['login-password'],
           'active' => 1
         ], true)) {
 
       return Response::json(['status' => 'success']);
     }
-
-    return Response::json(['status' => 'login failed']);
+    return Response::json([
+        'status' => 'failed',
+        'message' => 'שם משתמש או סיסמה שגויים'
+    ]);
   }
 
   public function activate() {

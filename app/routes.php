@@ -18,6 +18,7 @@ Route::resource('user', 'UserController', array(
 Route::get('activate', 'UserController@activate');
 
 Route::post('login', 'UserController@login');
+Route::post('sync', 'UserController@sync');
 
 /**
  * -----------------------------------------------------------------------

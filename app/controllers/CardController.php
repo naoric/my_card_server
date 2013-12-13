@@ -20,7 +20,7 @@ class CardController extends BaseController {
 
     $rules = [
         'lng' => 'required|numeric|between:-180,180', 
-        'lat' => 'required|numeric|betweeb:-90,90'
+        'lat' => 'required|numeric|between:-90,90'
     ];
 
     $validator = Validator::make($pnt, $rules);
