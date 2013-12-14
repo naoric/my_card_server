@@ -18,12 +18,7 @@ class CardController extends BaseController {
     $pnt = Input::only(['lng', 'lat']);
     $options = Input::only(['card', 'batch', 'start']);
 
-    $rules = [
-        'lng' => 'required|numeric|between:-180,180', 
-        'lat' => 'required|numeric|between:-90,90'
-    ];
-
-    $validator = Validator::make($pnt, $rules);
+    $validator = Card::validatePoint($pnt);
 
     if ($validator->fails()) {
       return Response::json([
@@ -34,7 +29,7 @@ class CardController extends BaseController {
 
     return Response::json([
           'status' => 'success',
-          'result' => Location::getNearby($pnt, $options)
+          'result' => Card::getNearby($pnt, $options)
     ]);
   }
 
