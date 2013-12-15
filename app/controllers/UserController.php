@@ -48,7 +48,7 @@ class UserController extends BaseController {
           'active' => 1
         ], true)) {
 
-      return Response::json(['status' => 'success']);
+      return Response::json(['status' => 'success', 'id' => Auth::user()->id]);
     }
     return Response::json([
         'status' => 'failed',

@@ -13,7 +13,7 @@ class CreateUpdatedCardsTable extends Migration {
   public function up() {
     $query = <<<EOT
         CREATE TABLE cards (
-          id INT (11) NOT NULL AUTO_INCREMENT,
+          id INT (10) UNSIGNED NOT NULL AUTO_INCREMENT,
           cname VARCHAR (50) NOT NULL,
           description TEXT,
           logo VARCHAR (60),
@@ -23,7 +23,7 @@ class CreateUpdatedCardsTable extends Migration {
           updated_at TIMESTAMP NOT NULL DEFAULT '0000-00-00 00:00:00',
           PRIMARY KEY (id),
           SPATIAL KEY location (latlng)
-        ) ENGINE = MYISAM DEFAULT CHARSET = utf8 COLLATE = utf8_bin;
+        ) ENGINE = MYISAM DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 EOT;
 
     DB::statement($query);

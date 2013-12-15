@@ -8,7 +8,7 @@ class Card extends Eloquent {
   ];
   
   public function users() {
-    return $this->belongsToMany('Card');
+    return $this->belongsToMany('User');
   }
 
   public static function validatePoint(array $pos) {

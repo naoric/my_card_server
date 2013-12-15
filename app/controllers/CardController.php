@@ -14,6 +14,16 @@ class CardController extends BaseController {
     return Card::find($id);
   }
   
+  public function getUser($id) {
+    $user = User::findOrFail($id);
+//    $cards = User::findOrFail($id)->cards;
+    
+    return Response::json([
+        'status' => 'success',
+        'result' => $user->cards->toJson()
+    ]);
+  }
+  
   public function getNearby() {
     $pnt = Input::only(['lng', 'lat']);
     $options = Input::only(['card', 'batch', 'start']);
